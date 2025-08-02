@@ -1,0 +1,43 @@
+import random
+import string
+# Function to generate password
+def generate_password(length=16, use_upper=True, use_digits=True, use_symbols=True):
+    """Generates a random password based on selected option."""
+    # Start with lowercase letters
+    characters = string.ascii_lowercase
+
+    # Add character sets based on user preference
+    if use_upper:
+        characters += string.ascii_uppercase
+    if use_digits:
+        characters += string.digits
+    if use_symbols:
+        characters += string.punctuation
+
+    # Ensure at least one character set is selected
+    if not characters:
+        return "No character tyes selected."
+    
+    # Generate and return password
+    password = ''.join(random.choice(characters) for _ in range(length))
+    return password
+
+# Main CLI interaction
+def main():
+    print("Password Generator")
+
+    try:
+        length = int(input("Enter password length (default 16): ") or 16)
+    except ValueError:
+        print("Invalid input.Use default length.")
+        length = 16
+
+    use_upper = input("Include uppercase letters? (Y/n): ").lower() != 'n'
+    use_digits = input("Include numbers? (Y/n): ").lower() != 'n'
+    use_symbols = input("Include symbols? (Y/n): ").lower() !='n'
+
+    password = generate_password(length, use_upper, use_digits, use_symbols)
+    print(f"\nGenerated Password: {password}")
+
+if __name__ == "__main__":
+    main()
